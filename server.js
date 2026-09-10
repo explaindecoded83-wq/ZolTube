@@ -59,5 +59,7 @@ app.get("/api/videos/:id/stream",(req,res)=>{
 });
 app.post("/api/videos/:id/view",(req,res)=>{db.prepare("UPDATE videos SET views=views+1 WHERE id=?").run(req.params.id);res.json({ok:true})});
 app.get("/api/me",auth,(req,res)=>{const u=db.prepare("SELECT id,name,email,channel FROM users WHERE id=?").get(req.user.id);res.json(u)});
-app.use((err,req,res,next)=>res.status(400).json({error:err.message}));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});app.use((err,req,res,next)=>res.status(400).json({error:err.message}));
 app.listen(PORT,()=>console.log(`ZolTube running on http://localhost:${PORT}`));
