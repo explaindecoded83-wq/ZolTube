@@ -1,19 +1,28 @@
-
-    <!doctype html>
+<!doctype html>
 <html lang="hi">
+
 <head>
+
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1">
+
 <title>ZolTube</title>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
-*{box-sizing:border-box}
+
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f7f7f7;
-  color:#111
+  color:#111;
 }
 
 header{
@@ -26,41 +35,43 @@ header{
   padding:8px 14px;
   position:sticky;
   top:0;
-  z-index:5
+  z-index:5;
 }
 
 .logo{
-  font-size:27px;
+  font-size:25px;
   font-weight:800;
-  color:#e11
+  color:#e11;
+  white-space:nowrap;
 }
 
 .logo span{
-  color:#111
+  color:#111;
 }
 
 .search{
   flex:1;
-  display:flex;
   max-width:650px;
-  margin:auto
+  margin:auto;
+  display:flex;
 }
 
 .search input{
   width:100%;
   padding:12px 16px;
   border:1px solid #bbb;
+  border-right:0;
   border-radius:24px 0 0 24px;
-  font-size:16px
+  font-size:15px;
+  outline:none;
 }
 
 .search button{
+  width:65px;
   border:1px solid #bbb;
-  border-left:0;
-  border-radius:0 24px 24px 0;
   background:#fff;
-  padding:0 18px;
-  font-size:20px
+  border-radius:0 24px 24px 0;
+  font-size:20px;
 }
 
 .avatar{
@@ -71,95 +82,81 @@ header{
   color:#fff;
   display:grid;
   place-items:center;
-  font-weight:bold
+  font-weight:bold;
+  flex-shrink:0;
 }
 
 .layout{
-  display:flex
+  display:flex;
 }
 
 .side{
-  width:210px;
+  width:215px;
   background:#fff;
   min-height:calc(100vh - 64px);
   padding:14px 9px;
   position:sticky;
-  top:64px
+  top:64px;
 }
 
 .nav{
   padding:13px;
   border-radius:10px;
   cursor:pointer;
-  margin:3px 0
+  margin:4px 0;
 }
 
-.nav.active,
-.nav:hover{
+.nav:hover,
+.nav.active{
   background:#eee;
-  font-weight:bold
+  font-weight:bold;
 }
 
 main{
   flex:1;
   max-width:1250px;
   margin:auto;
-  padding:20px
-}
-
-.row{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap
-}
-
-.btn{
-  padding:11px 17px;
-  border:0;
-  border-radius:22px;
-  font-size:15px;
-  cursor:pointer
-}
-
-.primary{
-  background:#e11;
-  color:#fff
-}
-
-.secondary{
-  background:#fff;
-  border:1px solid #bbb
+  padding:20px;
 }
 
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
-  gap:20px
+  grid-template-columns:
+  repeat(auto-fill,minmax(245px,1fr));
+  gap:20px;
 }
 
 .card{
-  cursor:pointer
+  cursor:pointer;
 }
 
 .thumb{
   aspect-ratio:16/9;
   border-radius:10px;
-  background:linear-gradient(135deg,#222,#888);
+  background:
+  linear-gradient(135deg,#222,#888);
   display:grid;
   place-items:center;
   color:#fff;
-  font-size:42px
+  font-size:42px;
+  overflow:hidden;
+}
+
+.thumb video{
+  width:100%;
+  height:100%;
+  object-fit:cover;
 }
 
 .title{
   font-weight:700;
-  margin-top:9px
+  margin-top:9px;
 }
 
 .meta{
   font-size:13px;
   color:#666;
-  margin-top:5px
+  margin-top:5px;
 }
 
 .panel{
@@ -167,7 +164,35 @@ main{
   border:1px solid #ddd;
   border-radius:14px;
   padding:20px;
-  margin-bottom:18px
+  margin-bottom:18px;
+}
+
+.error{
+  border-color:#e11;
+}
+
+.btn{
+  padding:11px 17px;
+  border:0;
+  border-radius:22px;
+  cursor:pointer;
+  font-size:14px;
+}
+
+.primary{
+  background:#e11;
+  color:#fff;
+}
+
+.secondary{
+  background:#fff;
+  border:1px solid #bbb;
+}
+
+.row{
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
 }
 
 .modal{
@@ -178,7 +203,7 @@ main{
   z-index:20;
   align-items:center;
   justify-content:center;
-  padding:18px
+  padding:18px;
 }
 
 .box{
@@ -186,7 +211,7 @@ main{
   padding:22px;
   border-radius:16px;
   width:100%;
-  max-width:520px
+  max-width:520px;
 }
 
 .box input,
@@ -196,63 +221,84 @@ main{
   margin:7px 0;
   border:1px solid #bbb;
   border-radius:8px;
-  font-size:15px
+  font-family:Arial;
 }
 
 .box textarea{
-  min-height:100px
+  min-height:100px;
+  resize:vertical;
 }
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px
+  grid-template-columns:
+  repeat(3,1fr);
+  gap:12px;
 }
 
 .stat{
   background:#eee;
   padding:16px;
-  border-radius:12px
+  border-radius:12px;
 }
 
 .stat b{
   display:block;
   font-size:25px;
-  margin-top:5px
+  margin-top:5px;
 }
 
-video.player{
+.video-player{
   width:100%;
-  max-height:65vh;
+  max-height:70vh;
   background:#000;
-  border-radius:10px
+  border-radius:12px;
+}
+
+.empty{
+  text-align:center;
+  padding:40px 20px;
+  color:#666;
 }
 
 @media(max-width:750px){
 
   .side{
-    display:none
+    display:none;
   }
 
   main{
-    padding:14px
+    padding:14px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
   }
 
   .grid{
-    grid-template-columns:1fr 1fr
+    grid-template-columns:
+    repeat(2,minmax(0,1fr));
+    gap:12px;
   }
 
   .logo{
-    font-size:23px
+    font-size:20px;
   }
+
+  .search button{
+    width:52px;
+  }
+
 }
 
 @media(max-width:430px){
 
   .grid{
-    grid-template-columns:1fr
+    grid-template-columns:1fr;
   }
+
 }
+
 </style>
 
 </head>
@@ -261,861 +307,1203 @@ video.player{
 
 <header>
 
-<div class="logo">
-Zol<span>Tube</span>
-</div>
+  <div class="logo">
+    Zol<span>Tube</span>
+  </div>
 
-<div class="search">
+  <div class="search">
 
-<input
-id="q"
-placeholder="Search ZolTube..."
-oninput="renderHome()">
+    <input
+      id="q"
+      placeholder="Search ZolTube..."
+      oninput="render()"
+    >
 
-<button onclick="renderHome()">
-🔍
-</button>
+    <button onclick="render()">🔍</button>
 
-</div>
+  </div>
 
-<div class="avatar" id="ava">
-Z
-</div>
+  <div
+    class="avatar"
+    id="ava"
+  >Z</div>
 
 </header>
 
 
 <div class="layout">
 
-<aside class="side">
+  <aside class="side">
 
-<div class="nav active" onclick="home(this)">
-🏠 Home
+    <div
+      class="nav active"
+      onclick="home(this)"
+    >
+      🏠 Home
+    </div>
+
+    <div
+      class="nav"
+      onclick="showShorts(this)"
+    >
+      ⚡ Shorts
+    </div>
+
+    <hr>
+
+    <div
+      class="nav"
+      onclick="studio(this)"
+    >
+      📊 Creator Studio
+    </div>
+
+    <div
+      class="nav"
+      onclick="uploadBox()"
+    >
+      ⬆️ Upload
+    </div>
+
+    <div
+      class="nav"
+      onclick="channel(this)"
+    >
+      👤 My Channel
+    </div>
+
+    <div
+      class="nav"
+      onclick="accountBox()"
+    >
+      🔐 Account
+    </div>
+
+  </aside>
+
+
+  <main id="main">
+
+    <div class="panel">
+      <h2>ZolTube</h2>
+      <p>Loading videos...</p>
+    </div>
+
+  </main>
+
 </div>
 
-<div class="nav" onclick="shorts(this)">
-⚡ Shorts
-</div>
 
-<hr>
+<div
+  class="modal"
+  id="modal"
+>
 
-<div class="nav" onclick="studio(this)">
-📊 Creator Studio
-</div>
-
-<div class="nav" onclick="uploadBox()">
-⬆️ Upload
-</div>
-
-<div class="nav" onclick="channel(this)">
-👤 My Channel
-</div>
-
-<div class="nav" onclick="loginBox()">
-🔐 Login / Sign up
-</div>
-
-</aside>
-
-
-<main id="main">
-
-<div class="panel">
-ZolTube loading...
-</div>
-
-</main>
-
-</div>
-
-
-<div class="modal" id="modal">
-
-<div class="box" id="box"></div>
+  <div
+    class="box"
+    id="box"
+  ></div>
 
 </div>
 
 
 <script>
 
-let vids=[];
+/* =====================================================
+   SUPABASE CONNECTION
+===================================================== */
 
-let token=
-localStorage.getItem("zolToken")||"";
+const SUPABASE_URL =
+"https://yfcvfcokdovppmwldrl.supabase.co";
 
-let me=
+const SUPABASE_PUBLISHABLE_KEY =
+"PASTE_YOUR_PUBLISHABLE_KEY_HERE";
+
+let supabase = null;
+
+try{
+
+  if(
+    window.supabase &&
+    SUPABASE_PUBLISHABLE_KEY !==
+    "PASTE_YOUR_PUBLISHABLE_KEY_HERE"
+  ){
+
+    supabase =
+      window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_PUBLISHABLE_KEY
+      );
+
+  }
+
+}catch(error){
+
+  console.log(
+    "Supabase connection skipped:",
+    error.message
+  );
+
+}
+
+
+/* =====================================================
+   APP STATE
+===================================================== */
+
+let vids = [];
+
+let mode = "home";
+
+let token =
+localStorage.getItem("zolToken") || "";
+
+let me =
 JSON.parse(
-localStorage.getItem("zolMe")||"null"
+  localStorage.getItem("zolMe") || "null"
 );
 
 
-const main=
+const main =
 document.getElementById("main");
 
-const modal=
+const modal =
 document.getElementById("modal");
 
-const box=
+const box =
 document.getElementById("box");
 
-const ava=
+const ava =
 document.getElementById("ava");
 
 
-function esc(s){
-
-return String(s??"")
-.replace(
-/[&<>"]/g,
-c=>({
-"&":"&amp;",
-"<":"&lt;",
-">":"&gt;",
-'"':"&quot;"
-}[c])
-);
-
-}
-
+/* =====================================================
+   API HELPER
+===================================================== */
 
 async function api(url,opt={}){
 
-opt.headers={
-...(opt.headers||{}),
-...(token?
-{
-Authorization:"Bearer "+token
-}:{})
-};
+  opt.headers = {
 
-let r=
-await fetch(url,opt);
+    ...(opt.headers || {}),
 
-let d=
-await r.json().catch(()=>({}));
+    ...(token
+      ? {
+          Authorization:
+          "Bearer " + token
+        }
+      : {})
 
-if(!r.ok){
+  };
 
-throw Error(
-d.error||"Request failed"
-);
+  const r =
+    await fetch(url,opt);
+
+  const d =
+    await r
+      .json()
+      .catch(() => ({}));
+
+  if(!r.ok){
+
+    throw new Error(
+      d.error ||
+      "Request failed"
+    );
+
+  }
+
+  return d;
 
 }
 
-return d;
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function esc(value){
+
+  return String(value ?? "")
+    .replace(
+      /[&<>"]/g,
+      c => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;"
+      }[c])
+    );
 
 }
 
+
+/* =====================================================
+   LOAD VIDEOS
+===================================================== */
 
 async function load(){
 
-try{
+  try{
 
-vids=
-await api("/api/videos");
+    vids =
+      await api("/api/videos");
 
-}catch(e){
+  }catch(error){
 
-vids=[];
+    vids = [];
+
+    console.log(
+      "Video loading error:",
+      error.message
+    );
+
+  }
+
+  render();
 
 }
 
-renderHome();
 
-}
-
+/* =====================================================
+   VIDEO CARD
+===================================================== */
 
 function card(v){
 
-return `
+  return `
 
-<div
-class="card"
-onclick="watch('${String(v.id)}')"
->
+    <div
+      class="card"
+      onclick="watch(${Number(v.id)})"
+    >
 
-<div class="thumb">
-▶
-</div>
+      <div class="thumb">
 
-<div class="title">
-${esc(v.title)}
-</div>
+        <span>▶</span>
 
-<div class="meta">
-${esc(v.channel||"ZolTube")}
-·
-${Number(v.views||0)}
-views
-</div>
+      </div>
 
-</div>
+      <div class="title">
+        ${esc(v.title)}
+      </div>
 
-`;
+      <div class="meta">
+        ${esc(v.channel)}
+        ·
+        ${Number(v.views || 0)} views
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================================
+   RENDER HOME
+===================================================== */
+
+function render(){
+
+  let list =
+    [...vids];
+
+  const input =
+    document.getElementById("q");
+
+  const q =
+    (input?.value || "")
+      .toLowerCase()
+      .trim();
+
+
+  if(mode === "shorts"){
+
+    list =
+      list.filter(v =>
+        String(v.title)
+          .toLowerCase()
+          .includes("short")
+      );
+
+  }
+
+
+  if(q){
+
+    list =
+      list.filter(v =>
+        (
+          String(v.title) +
+          " " +
+          String(v.channel)
+        )
+        .toLowerCase()
+        .includes(q)
+      );
+
+  }
+
+
+  main.innerHTML = `
+
+    <div
+      class="row"
+      style="margin-bottom:18px"
+    >
+
+      <button
+        class="btn primary"
+        onclick="uploadBox()"
+      >
+        ⬆️ Upload video
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="accountBox()"
+      >
+        ${me ? "👤 Account" : "🔐 Login / Sign up"}
+      </button>
+
+    </div>
+
+    ${
+      list.length
+
+      ? `
+        <div class="grid">
+          ${list.map(card).join("")}
+        </div>
+      `
+
+      : `
+        <div class="panel empty">
+
+          <h2>🎬 अभी कोई video नहीं है</h2>
+
+          <p>
+            ZolTube पर पहला video upload करें।
+          </p>
+
+          <button
+            class="btn primary"
+            onclick="uploadBox()"
+          >
+            ⬆️ Upload Video
+          </button>
+
+        </div>
+      `
+    }
+
+  `;
 
 }
 
 
-function renderHome(){
-
-let q=
-(
-document.getElementById("q").value||""
-).toLowerCase();
-
-let list=
-vids.filter(
-v=>
-(
-v.title+
-" "+
-v.channel
-)
-.toLowerCase()
-.includes(q)
-);
-
-
-main.innerHTML=`
-
-<div
-class="row"
-style="margin-bottom:18px"
->
-
-<button
-class="btn primary"
-onclick="uploadBox()"
->
-⬆️ Upload video
-</button>
-
-<button
-class="btn secondary"
-onclick="loginBox()"
->
-${me?"Account":"Login / Sign up"}
-</button>
-
-</div>
-
-${
-list.length?
-
-`
-
-<div class="grid">
-
-${list.map(card).join("")}
-
-</div>
-
-`
-
-:
-
-`
-
-<div class="panel">
-
-<h2>
-अभी कोई video नहीं है।
-</h2>
-
-<p>
-पहला video upload करके testing शुरू करें।
-</p>
-
-</div>
-
-`
-}
-
-`;
-
-}
-
+/* =====================================================
+   HOME
+===================================================== */
 
 function home(el){
 
-nav(el);
+  mode = "home";
 
-renderHome();
+  nav(el);
+
+  render();
 
 }
 
+
+/* =====================================================
+   SHORTS
+===================================================== */
+
+function showShorts(el){
+
+  mode = "shorts";
+
+  nav(el);
+
+  render();
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function nav(el){
 
-document
-.querySelectorAll(".nav")
-.forEach(
-x=>x.classList.remove("active")
-);
+  document
+    .querySelectorAll(".nav")
+    .forEach(x =>
+      x.classList.remove("active")
+    );
 
-if(el){
+  if(el){
 
-el.classList.add("active");
+    el.classList.add("active");
 
-}
-
-}
-
-
-function shorts(el){
-
-nav(el);
-
-let a=
-vids.filter(
-v=>
-String(v.title)
-.toLowerCase()
-.includes("short")
-);
-
-main.innerHTML=`
-
-<div class="panel">
-
-<h2>
-⚡ Shorts
-</h2>
-
-<div class="grid">
-
-${
-a.map(card).join("")
-||
-"<p>अभी Shorts नहीं हैं।</p>"
-}
-
-</div>
-
-</div>
-
-`;
+  }
 
 }
 
 
-function loginBox(){
+/* =====================================================
+   ACCOUNT BOX
+===================================================== */
 
-modal.style.display="flex";
+function accountBox(){
 
-box.innerHTML=`
+  modal.style.display = "flex";
 
-<h2>
-🔐 ZolTube Account
-</h2>
 
-<input
-id="n"
-placeholder="Name (signup के लिए)"
->
+  if(me){
 
-<input
-id="e"
-type="email"
-placeholder="Email"
->
+    box.innerHTML = `
 
-<input
-id="p"
-type="password"
-placeholder="Password (6+ characters)"
->
+      <h2>👤 My Account</h2>
 
-<div class="row">
+      <p>
+        <b>Name:</b>
+        ${esc(me.name)}
+      </p>
 
-<button
-class="btn primary"
-onclick="signup()"
->
-Create account
-</button>
+      <p>
+        <b>Email:</b>
+        ${esc(me.email)}
+      </p>
 
-<button
-class="btn secondary"
-onclick="signin()"
->
-Login
-</button>
+      <p>
+        <b>Channel:</b>
+        ${esc(me.channel)}
+      </p>
 
-<button
-class="btn secondary"
-onclick="closeBox()"
->
-Close
-</button>
+      <div class="row">
 
-</div>
+        <button
+          class="btn primary"
+          onclick="channel()"
+        >
+          👤 My Channel
+        </button>
 
-`;
+        <button
+          class="btn secondary"
+          onclick="logout()"
+        >
+          Logout
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="closeBox()"
+        >
+          Close
+        </button>
+
+      </div>
+
+    `;
+
+  }else{
+
+    box.innerHTML = `
+
+      <h2>🔐 ZolTube Account</h2>
+
+      <input
+        id="n"
+        placeholder="Name (signup के लिए)"
+      >
+
+      <input
+        id="e"
+        type="email"
+        placeholder="Email"
+      >
+
+      <input
+        id="p"
+        type="password"
+        placeholder="Password (6+ characters)"
+      >
+
+      <div class="row">
+
+        <button
+          class="btn primary"
+          onclick="signup()"
+        >
+          Create account
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="signin()"
+        >
+          Login
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="closeBox()"
+        >
+          Close
+        </button>
+
+      </div>
+
+    `;
+
+  }
 
 }
 
+
+/* =====================================================
+   SIGN UP
+===================================================== */
 
 async function signup(){
 
-try{
+  try{
 
-let d=
-await api(
-"/api/register",
-{
-method:"POST",
+    const name =
+      document.getElementById("n")
+        .value
+        .trim();
 
-headers:{
-"Content-Type":
-"application/json"
-},
+    const email =
+      document.getElementById("e")
+        .value
+        .trim();
 
-body:
-JSON.stringify({
+    const password =
+      document.getElementById("p")
+        .value;
 
-name:n.value.trim(),
 
-email:e.value.trim(),
+    const d =
+      await api(
+        "/api/register",
+        {
+          method:"POST",
 
-password:p.value
+          headers:{
+            "Content-Type":
+            "application/json"
+          },
 
-})
+          body:
+          JSON.stringify({
+            name,
+            email,
+            password
+          })
+        }
+      );
+
+
+    setMe(d);
+
+    closeBox();
+
+    render();
+
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
 
 }
-);
 
-setMe(d);
 
-closeBox();
-
-renderHome();
-
-}catch(x){
-
-alert(x.message);
-
-}
-
-}
-
+/* =====================================================
+   LOGIN
+===================================================== */
 
 async function signin(){
 
-try{
+  try{
 
-let d=
-await api(
-"/api/login",
-{
-method:"POST",
+    const email =
+      document.getElementById("e")
+        .value
+        .trim();
 
-headers:{
-"Content-Type":
-"application/json"
-},
+    const password =
+      document.getElementById("p")
+        .value;
 
-body:
-JSON.stringify({
 
-email:e.value.trim(),
+    const d =
+      await api(
+        "/api/login",
+        {
+          method:"POST",
 
-password:p.value
+          headers:{
+            "Content-Type":
+            "application/json"
+          },
 
-})
+          body:
+          JSON.stringify({
+            email,
+            password
+          })
+        }
+      );
+
+
+    setMe(d);
+
+    closeBox();
+
+    render();
+
+
+  }catch(error){
+
+    alert(error.message);
+
+  }
 
 }
-);
 
-setMe(d);
 
-closeBox();
-
-renderHome();
-
-}catch(x){
-
-alert(x.message);
-
-}
-
-}
-
+/* =====================================================
+   SET USER
+===================================================== */
 
 function setMe(d){
 
-token=d.token;
+  token =
+    d.token;
 
-me=d.user;
+  me =
+    d.user;
 
-localStorage.setItem(
-"zolToken",
-token
-);
 
-localStorage.setItem(
-"zolMe",
-JSON.stringify(me)
-);
+  localStorage.setItem(
+    "zolToken",
+    token
+  );
 
-ava.textContent=
-(me.name||"Z")[0]
-.toUpperCase();
+  localStorage.setItem(
+    "zolMe",
+    JSON.stringify(me)
+  );
+
+
+  ava.textContent =
+    (me.name || "Z")
+      .charAt(0)
+      .toUpperCase();
 
 }
 
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout(){
+
+  token = "";
+
+  me = null;
+
+  localStorage.removeItem(
+    "zolToken"
+  );
+
+  localStorage.removeItem(
+    "zolMe"
+  );
+
+  ava.textContent = "Z";
+
+  closeBox();
+
+  render();
+
+}
+
+
+/* =====================================================
+   UPLOAD BOX
+===================================================== */
 
 function uploadBox(){
 
-if(!token){
+  if(!token){
 
-loginBox();
+    accountBox();
 
-return;
+    return;
+
+  }
+
+
+  modal.style.display =
+    "flex";
+
+
+  box.innerHTML = `
+
+    <h2>⬆️ Upload Video</h2>
+
+    <input
+      id="t"
+      placeholder="Video title"
+    >
+
+    <textarea
+      id="d"
+      placeholder="Description"
+    ></textarea>
+
+    <input
+      id="f"
+      type="file"
+      accept="video/*"
+    >
+
+    <p>
+      Maximum upload size:
+      500 MB
+    </p>
+
+    <div class="row">
+
+      <button
+        class="btn primary"
+        onclick="publish()"
+      >
+        Publish
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="closeBox()"
+      >
+        Cancel
+      </button>
+
+    </div>
+
+  `;
 
 }
 
-modal.style.display="flex";
 
-box.innerHTML=`
-
-<h2>
-⬆️ Upload Video
-</h2>
-
-<input
-id="t"
-placeholder="Video title"
->
-
-<textarea
-id="d"
-placeholder="Description"
-></textarea>
-
-<input
-id="f"
-type="file"
-accept="video/*"
->
-
-<p>
-Testing version: video Render server पर save होगा.
-</p>
-
-<div class="row">
-
-<button
-class="btn primary"
-onclick="publish()"
->
-Publish
-</button>
-
-<button
-class="btn secondary"
-onclick="closeBox()"
->
-Cancel
-</button>
-
-</div>
-
-`;
-
-}
-
+/* =====================================================
+   PUBLISH VIDEO
+===================================================== */
 
 async function publish(){
 
-try{
+  try{
 
-if(!f.files[0]){
+    const title =
+      document.getElementById("t")
+        .value
+        .trim();
 
-throw Error(
-"पहले video चुनें"
-);
+    const description =
+      document.getElementById("d")
+        .value
+        .trim();
+
+    const file =
+      document.getElementById("f")
+        .files[0];
+
+
+    if(!title){
+
+      alert(
+        "Video title डालें।"
+      );
+
+      return;
+
+    }
+
+
+    if(!file){
+
+      alert(
+        "Video file चुनें।"
+      );
+
+      return;
+
+    }
+
+
+    const fd =
+      new FormData();
+
+
+    fd.append(
+      "title",
+      title
+    );
+
+    fd.append(
+      "description",
+      description
+    );
+
+    fd.append(
+      "video",
+      file
+    );
+
+
+    await api(
+      "/api/videos",
+      {
+        method:"POST",
+        body:fd
+      }
+    );
+
+
+    closeBox();
+
+    await load();
+
+    alert(
+      "✅ Video uploaded!"
+    );
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
 
 }
 
-let fd=
-new FormData();
 
-fd.append(
-"title",
-t.value.trim()
-);
-
-fd.append(
-"description",
-d.value
-);
-
-fd.append(
-"video",
-f.files[0]
-);
-
-await api(
-"/api/videos",
-{
-method:"POST",
-body:fd
-}
-);
-
-closeBox();
-
-await load();
-
-alert(
-"Video uploaded!"
-);
-
-}catch(x){
-
-alert(x.message);
-
-}
-
-}
-
+/* =====================================================
+   WATCH VIDEO
+===================================================== */
 
 async function watch(id){
 
-let v=
-vids.find(
-x=>
-String(x.id)===
-String(id)
-);
+  const v =
+    vids.find(
+      x => Number(x.id) === Number(id)
+    );
 
-if(!v)return;
 
-await api(
-"/api/videos/"
-+encodeURIComponent(id)
-+"/view",
-{
-method:"POST"
+  if(!v){
+
+    return;
+
+  }
+
+
+  await api(
+    "/api/videos/" +
+    id +
+    "/view",
+    {
+      method:"POST"
+    }
+  ).catch(
+    () => {}
+  );
+
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <video
+        class="video-player"
+        controls
+        playsinline
+        src="/api/videos/${id}/stream"
+      ></video>
+
+      <h2>
+        ${esc(v.title)}
+      </h2>
+
+      <div class="meta">
+
+        ${esc(v.channel)}
+        ·
+        ${Number(v.views || 0) + 1}
+        views
+
+      </div>
+
+      <p>
+        ${esc(v.description || "")}
+      </p>
+
+      <div class="row">
+
+        <button
+          class="btn secondary"
+        >
+          👍 Like
+        </button>
+
+        <button
+          class="btn secondary"
+        >
+          💬 Comment
+        </button>
+
+        <button
+          class="btn primary"
+        >
+          🔔 Subscribe
+        </button>
+
+      </div>
+
+      <br>
+
+      <button
+        class="btn secondary"
+        onclick="load()"
+      >
+        ← Back to Home
+      </button>
+
+    </div>
+
+  `;
+
 }
-).catch(()=>{});
 
 
-main.innerHTML=`
-
-<div class="panel">
-
-<video
-class="player"
-controls
-autoplay
-src="/api/videos/${encodeURIComponent(id)}/stream"
->
-</video>
-
-<h2>
-${esc(v.title)}
-</h2>
-
-<div class="meta">
-
-${esc(v.channel||"ZolTube")}
-·
-${Number(v.views||0)+1}
-views
-
-</div>
-
-<p>
-${esc(v.description||"")}
-</p>
-
-<div class="row">
-
-<button class="btn secondary">
-👍 Like
-</button>
-
-<button class="btn secondary">
-💬 Comment
-</button>
-
-<button class="btn primary">
-🔔 Subscribe
-</button>
-
-<button
-class="btn secondary"
-onclick="renderHome()"
->
-← Back
-</button>
-
-</div>
-
-</div>
-
-`;
-
-}
-
+/* =====================================================
+   CREATOR STUDIO
+===================================================== */
 
 function studio(el){
 
-nav(el);
+  nav(el);
 
-if(!me){
 
-loginBox();
+  if(!me){
 
-return;
+    accountBox();
+
+    return;
+
+  }
+
+
+  const mine =
+    vids.filter(
+      v =>
+        v.name === me.name
+    );
+
+
+  const views =
+    mine.reduce(
+      (total,v) =>
+        total +
+        Number(v.views || 0),
+      0
+    );
+
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <h1>
+        📊 Creator Studio
+      </h1>
+
+      <p>
+        Welcome,
+        <b>${esc(me.name)}</b>
+      </p>
+
+      <div class="stats">
+
+        <div class="stat">
+          Videos
+          <b>${mine.length}</b>
+        </div>
+
+        <div class="stat">
+          Views
+          <b>${views}</b>
+        </div>
+
+        <div class="stat">
+          Subscribers
+          <b>0</b>
+        </div>
+
+      </div>
+
+      <br>
+
+      <button
+        class="btn primary"
+        onclick="uploadBox()"
+      >
+        ⬆️ Upload Video
+      </button>
+
+    </div>
+
+  `;
 
 }
 
-let a=
-vids.filter(
-v=>v.name===me.name
-);
 
-let views=
-a.reduce(
-(s,v)=>
-s+Number(v.views||0),
-0
-);
-
-main.innerHTML=`
-
-<div class="panel">
-
-<h1>
-📊 Creator Studio
-</h1>
-
-<p>
-Welcome, ${esc(me.name)}
-</p>
-
-<div class="stats">
-
-<div class="stat">
-Videos
-<b>
-${a.length}
-</b>
-</div>
-
-<div class="stat">
-Views
-<b>
-${views}
-</b>
-</div>
-
-<div class="stat">
-Subscribers
-<b>
-0
-</b>
-</div>
-
-</div>
-
-</div>
-
-`;
-
-}
-
+/* =====================================================
+   MY CHANNEL
+===================================================== */
 
 function channel(el){
 
-nav(el);
+  if(el){
 
-if(!me){
+    nav(el);
 
-loginBox();
+  }
 
-return;
+
+  if(!me){
+
+    accountBox();
+
+    return;
+
+  }
+
+
+  const mine =
+    vids.filter(
+      v =>
+        v.channel === me.channel
+    );
+
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <h1>
+        👤 ${esc(me.channel)}
+      </h1>
+
+      <p>
+        ${esc(me.email)}
+      </p>
+
+      <hr>
+
+      <h2>
+        My Videos
+      </h2>
+
+      ${
+        mine.length
+
+        ? `
+          <div class="grid">
+            ${mine.map(card).join("")}
+          </div>
+        `
+
+        : `
+          <div class="empty">
+            अभी कोई video नहीं है।
+          </div>
+        `
+      }
+
+    </div>
+
+  `;
 
 }
 
-let a=
-vids.filter(
-v=>v.channel===me.channel
-);
 
-main.innerHTML=`
-
-<div class="panel">
-
-<h1>
-👤 ${esc(me.channel)}
-</h1>
-
-<p>
-${esc(me.email)}
-</p>
-
-<h2>
-My Videos
-</h2>
-
-<div class="grid">
-
-${
-a.map(card).join("")
-||
-"<p>अभी videos नहीं हैं।</p>"
-}
-
-</div>
-
-</div>
-
-`;
-
-}
-
+/* =====================================================
+   CLOSE MODAL
+===================================================== */
 
 function closeBox(){
 
-modal.style.display="none";
-
-box.innerHTML="";
+  modal.style.display =
+    "none";
 
 }
 
+
+/* =====================================================
+   CLICK OUTSIDE MODAL
+===================================================== */
 
 modal.addEventListener(
-"click",
-e=>{
+  "click",
+  function(e){
 
-if(e.target===modal){
+    if(
+      e.target === modal
+    ){
 
-closeBox();
+      closeBox();
 
-}
+    }
 
-}
+  }
 );
 
 
+/* =====================================================
+   INITIAL USER
+===================================================== */
+
 if(me){
 
-ava.textContent=
-(me.name||"Z")[0]
-.toUpperCase();
+  ava.textContent =
+    (me.name || "Z")
+      .charAt(0)
+      .toUpperCase();
 
 }
 
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
 
 load();
 
 </script>
 
 </body>
-  </html>
 
-    
+</html>
