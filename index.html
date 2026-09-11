@@ -9,16 +9,14 @@
 
 <style>
 *{box-sizing:border-box}
-
 body{
   margin:0;
   font-family:Arial,sans-serif;
   background:#f7f7f7;
-  color:#111;
+  color:#111
 }
-
 header{
-  height:64px;
+  height:60px;
   background:#fff;
   border-bottom:1px solid #ddd;
   display:flex;
@@ -27,125 +25,75 @@ header{
   padding:8px 14px;
   position:sticky;
   top:0;
-  z-index:10;
+  z-index:10
 }
-
 .logo{
-  font-size:27px;
+  font-size:24px;
   font-weight:800;
-  color:#e11;
-  white-space:nowrap;
+  color:#e11
 }
-
-.logo span{
-  color:#111;
-}
-
+.logo span{color:#111}
 .search{
   flex:1;
-  display:flex;
   max-width:650px;
   margin:auto;
+  display:flex
 }
-
 .search input{
   width:100%;
-  padding:12px 16px;
+  padding:11px 15px;
   border:1px solid #bbb;
-  border-radius:24px 0 0 24px;
-  font-size:16px;
-  outline:none;
+  border-radius:22px 0 0 22px;
+  outline:none
 }
-
 .search button{
   border:1px solid #bbb;
   border-left:0;
-  border-radius:0 24px 24px 0;
-  background:#fff;
+  border-radius:0 22px 22px 0;
   padding:0 18px;
-  font-size:20px;
-  cursor:pointer;
+  background:#fff
 }
-
 .avatar{
-  width:40px;
-  height:40px;
+  width:38px;
+  height:38px;
   border-radius:50%;
   background:#111;
   color:#fff;
   display:grid;
   place-items:center;
-  font-weight:bold;
-  cursor:pointer;
+  font-weight:bold
 }
-
-.layout{
-  display:flex;
-}
-
+.layout{display:flex}
 .side{
   width:210px;
   background:#fff;
-  min-height:calc(100vh - 64px);
+  min-height:calc(100vh - 60px);
   padding:14px 9px;
   position:sticky;
-  top:64px;
+  top:60px
 }
-
 .nav{
-  padding:13px;
+  padding:12px;
   border-radius:10px;
   cursor:pointer;
-  margin:3px 0;
+  margin:3px 0
 }
-
-.nav:hover,
-.nav.active{
+.nav:hover,.nav.active{
   background:#eee;
-  font-weight:bold;
+  font-weight:bold
 }
-
 main{
   flex:1;
   max-width:1250px;
   margin:auto;
-  padding:20px;
+  padding:20px
 }
-
-.row{
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-}
-
-.btn{
-  padding:11px 17px;
-  border:0;
-  border-radius:22px;
-  font-size:15px;
-  cursor:pointer;
-}
-
-.primary{
-  background:#e11;
-  color:#fff;
-}
-
-.secondary{
-  background:#fff;
-  border:1px solid #bbb;
-}
-
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
-  gap:20px;
+  gap:20px
 }
-
-.card{
-  cursor:pointer;
-}
-
+.card{cursor:pointer}
 .thumb{
   aspect-ratio:16/9;
   border-radius:10px;
@@ -153,46 +101,54 @@ main{
   display:grid;
   place-items:center;
   color:#fff;
-  font-size:42px;
-  overflow:hidden;
+  font-size:40px;
+  overflow:hidden
 }
-
 .thumb img{
   width:100%;
   height:100%;
-  object-fit:cover;
+  object-fit:cover
 }
-
 .title{
   font-weight:700;
-  margin-top:9px;
+  margin-top:9px
 }
-
 .meta{
   font-size:13px;
   color:#666;
-  margin-top:5px;
+  margin-top:5px
 }
-
 .panel{
   background:#fff;
   border:1px solid #ddd;
   border-radius:14px;
   padding:20px;
-  margin-bottom:18px;
+  margin-bottom:18px
 }
-
+.btn{
+  padding:10px 16px;
+  border:0;
+  border-radius:22px;
+  cursor:pointer
+}
+.primary{
+  background:#e11;
+  color:#fff
+}
+.secondary{
+  background:#fff;
+  border:1px solid #bbb
+}
 .modal{
   display:none;
   position:fixed;
   inset:0;
   background:#0008;
-  z-index:30;
+  z-index:20;
   align-items:center;
   justify-content:center;
-  padding:18px;
+  padding:18px
 }
-
 .box{
   background:#fff;
   padding:22px;
@@ -200,83 +156,60 @@ main{
   width:100%;
   max-width:520px;
   max-height:90vh;
-  overflow:auto;
+  overflow:auto
 }
-
 .box input,
 .box textarea{
   width:100%;
-  padding:12px;
+  padding:11px;
   margin:7px 0;
   border:1px solid #bbb;
-  border-radius:8px;
-  font-size:15px;
+  border-radius:8px
 }
-
 .box textarea{
   min-height:100px;
+  resize:vertical
 }
-
+.row{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap
+}
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  gap:12px
 }
-
 .stat{
   background:#eee;
   padding:16px;
-  border-radius:12px;
+  border-radius:12px
 }
-
 .stat b{
   display:block;
   font-size:25px;
-  margin-top:5px;
+  margin-top:5px
 }
-
-video.player{
+.videoPlayer{
   width:100%;
-  max-height:65vh;
+  max-height:70vh;
   background:#000;
-  border-radius:10px;
+  border-radius:10px
 }
-
 .error{
-  border:2px solid #e11;
+  color:#b00020
 }
-
-.small{
-  font-size:13px;
-  color:#666;
+.success{
+  color:#087f23
 }
-
 @media(max-width:750px){
-  .side{
-    display:none;
-  }
-
-  main{
-    padding:14px;
-  }
-
-  .grid{
-    grid-template-columns:1fr 1fr;
-  }
-
-  .logo{
-    font-size:23px;
-  }
+  .side{display:none}
+  main{padding:14px}
+  .stats{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr 1fr}
 }
-
 @media(max-width:430px){
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .search input{
-    font-size:14px;
-  }
+  .grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -284,131 +217,70 @@ video.player{
 <body>
 
 <header>
+  <div class="logo">Zol<span>Tube</span></div>
 
-<div class="logo">
-Zol<span>Tube</span>
-</div>
+  <div class="search">
+    <input id="q" placeholder="Search ZolTube..." oninput="renderHome()">
+    <button onclick="renderHome()">🔍</button>
+  </div>
 
-<div class="search">
-<input
-id="q"
-placeholder="Search ZolTube..."
-oninput="renderHome()"
->
-<button onclick="renderHome()">🔍</button>
-</div>
-
-<div
-class="avatar"
-id="ava"
-onclick="accountBox()"
->
-Z
-</div>
-
+  <div class="avatar" id="ava">Z</div>
 </header>
-
 
 <div class="layout">
 
 <aside class="side">
 
-<div
-class="nav active"
-onclick="home(this)"
->
-🏠 Home
-</div>
+  <div class="nav active" onclick="homePage(this)">
+    🏠 Home
+  </div>
 
-<div
-class="nav"
-onclick="shorts(this)"
->
-⚡ Shorts
-</div>
+  <div class="nav" onclick="showShorts(this)">
+    ⚡ Shorts
+  </div>
 
-<hr>
+  <hr>
 
-<div
-class="nav"
-onclick="studio(this)"
->
-📊 Creator Studio
-</div>
+  <div class="nav" onclick="studioPage(this)">
+    📊 Creator Studio
+  </div>
 
-<div
-class="nav"
-onclick="uploadBox()"
->
-⬆️ Upload
-</div>
+  <div class="nav" onclick="uploadBox()">
+    ⬆️ Upload
+  </div>
 
-<div
-class="nav"
-onclick="channel(this)"
->
-👤 My Channel
-</div>
+  <div class="nav" onclick="channelPage(this)">
+    👤 My Channel
+  </div>
 
-<div
-class="nav"
-onclick="accountBox()"
->
-🔐 Account
-</div>
+  <div class="nav" onclick="accountBox()">
+    🔐 Account
+  </div>
 
 </aside>
 
-
 <main id="main">
 
-<div class="panel">
-
-<h2>ZolTube</h2>
-
-<p>
-Loading videos...
-</p>
-
-</div>
+  <div class="panel">
+    <h2>ZolTube Loading videos...</h2>
+    <p>Please wait...</p>
+  </div>
 
 </main>
 
 </div>
 
-
-<div
-class="modal"
-id="modal"
->
-
-<div
-class="box"
-id="box"
-></div>
-
+<div class="modal" id="modal">
+  <div class="box" id="box"></div>
 </div>
 
-
 <script>
-
-/* =====================================================
-   SUPABASE CONNECTION
-   ===================================================== */
 
 const SUPABASE_URL =
 "https://yfcvfcokdovppmwldrl.supabase.co";
 
-
-/*
-   IMPORTANT:
-   नीचे अपनी वही Supabase PUBLISHABLE KEY डालना।
-
-   Service Role / Secret Key मत डालना।
-*/
 const SUPABASE_PUBLISHABLE_KEY =
-"यहाँ अपनी वही sb_publishable_ वाली Publishable Key डालो";sb_publishable_XTbCx24neg0ySUi6Ih16hw_ordpBVhf
-
+"sb_publishable_XTbCx24neg0ySUi6Ih16hw_ordpBVhf";
 
 const supabase =
 window.supabase.createClient(
@@ -416,350 +288,134 @@ window.supabase.createClient(
   SUPABASE_PUBLISHABLE_KEY
 );
 
-
-/* =====================================================
-   GLOBAL VARIABLES
-   ===================================================== */
-
 let vids = [];
-
 let me = null;
-
 let currentUser = null;
+let mode = "home";
 
-let loading = true;
+const main = document.getElementById("main");
+const modal = document.getElementById("modal");
+const box = document.getElementById("box");
+const ava = document.getElementById("ava");
 
-
-const main =
-document.getElementById("main");
-
-const modal =
-document.getElementById("modal");
-
-const box =
-document.getElementById("box");
-
-const ava =
-document.getElementById("ava");
-
-
-/* =====================================================
-   HELPERS
-   ===================================================== */
-
-function esc(s){
-
-  return String(s ?? "")
-  .replace(/[&<>"]/g,c=>({
-
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;"
-
-  }[c]));
-
-}
-
-
-function wait(ms){
-
-  return new Promise(resolve =>
-    setTimeout(resolve,ms)
+function esc(value){
+  return String(value ?? "").replace(
+    /[&<>"']/g,
+    function(c){
+      return {
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#039;"
+      }[c];
+    }
   );
-
 }
 
+function closeBox(){
+  modal.style.display = "none";
+}
 
-/*
-  किसी Supabase request के हमेशा loading में फँसने से
-  बचाने के लिए timeout.
-*/
+function openBox(html){
+  box.innerHTML = html;
+  modal.style.display = "flex";
+}
 
-async function withTimeout(
-  promise,
-  ms=10000
-){
+function nav(el){
+  document.querySelectorAll(".nav").forEach(function(x){
+    x.classList.remove("active");
+  });
 
-  let timer;
-
-  const timeout =
-    new Promise((_,reject)=>{
-
-      timer=setTimeout(()=>{
-
-        reject(
-          new Error(
-            "Supabase connection timed out. Internet या Supabase settings check करें."
-          )
-        );
-
-      },ms);
-
-    });
-
-
-  try{
-
-    return await Promise.race([
-      promise,
-      timeout
-    ]);
-
-  }finally{
-
-    clearTimeout(timer);
-
+  if(el){
+    el.classList.add("active");
   }
-
 }
-
-
-/* =====================================================
-   AUTH / PROFILE
-   ===================================================== */
 
 async function loadMe(){
 
-  try{
+  const result =
+    await supabase.auth.getUser();
 
-    const result =
-      await withTimeout(
-        supabase.auth.getSession(),
-        10000
-      );
+  currentUser = result.data.user || null;
 
-    const session =
-      result.data?.session || null;
-
-    currentUser =
-      session?.user || null;
-
-
-    if(!currentUser){
-
-      me=null;
-
-      ava.textContent="Z";
-
-      return null;
-
-    }
-
-
-    const profileResult =
-      await withTimeout(
-
-        supabase
-        .from("profiles")
-        .select(
-          "id,username,display_name,avatar_url"
-        )
-        .eq(
-          "id",
-          currentUser.id
-        )
-        .maybeSingle(),
-
-        10000
-
-      );
-
-
-    if(profileResult.error){
-
-      console.log(
-        "Profile error:",
-        profileResult.error
-      );
-
-      me={
-
-        id:currentUser.id,
-
-        username:
-          currentUser.email
-          ? currentUser.email.split("@")[0]
-          : "user",
-
-        display_name:
-          currentUser.email
-          ? currentUser.email.split("@")[0]
-          : "ZolTube"
-
-      };
-
-    }else{
-
-      me =
-        profileResult.data;
-
-    }
-
-
-    ava.textContent =
-      (
-        me?.display_name ||
-        me?.username ||
-        "Z"
-      )[0].toUpperCase();
-
-
-    return me;
-
-
-  }catch(error){
-
-    console.log(
-      "loadMe error:",
-      error
-    );
-
-    currentUser=null;
-
-    me=null;
-
-    ava.textContent="Z";
-
-    return null;
-
+  if(!currentUser){
+    me = null;
+    ava.textContent = "Z";
+    return;
   }
 
+  const profileResult =
+    await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+  if(profileResult.data){
+    me = profileResult.data;
+    ava.textContent =
+      (me.display_name || me.username || "Z")
+      .charAt(0)
+      .toUpperCase();
+  }else{
+    me = {
+      id:currentUser.id,
+      display_name:
+        currentUser.email?.split("@")[0] || "ZolTube User",
+      username:
+        currentUser.email?.split("@")[0] || "user"
+    };
+
+    ava.textContent =
+      me.display_name.charAt(0).toUpperCase();
+  }
 }
-
-
-/* =====================================================
-   LOAD VIDEOS
-   ===================================================== */
 
 async function load(){
 
-  loading=true;
-
-  main.innerHTML=`
-
+  main.innerHTML = `
     <div class="panel">
-
-      <h2>ZolTube</h2>
-
-      <p>
-        Loading videos...
-      </p>
-
+      <h2>ZolTube Loading videos...</h2>
+      <p>Videos load हो रहे हैं...</p>
     </div>
-
   `;
 
+  const result =
+    await supabase
+      .from("videos")
+      .select("*")
+      .order("created_at",{ascending:false});
 
-  try{
-
-    const result =
-      await withTimeout(
-
-        supabase
-        .from("videos")
-        .select(`
-          id,
-          user_id,
-          title,
-          description,
-          video_url,
-          thumbnail_url,
-          views,
-          likes,
-          created_at
-        `)
-        .order(
-          "created_at",
-          {
-            ascending:false
-          }
-        ),
-
-        10000
-
-      );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    vids =
-      result.data || [];
-
-
-    loading=false;
-
-    renderHome();
-
-
-  }catch(error){
-
-    console.error(
-      "VIDEO LOAD ERROR:",
-      error
-    );
-
-    loading=false;
-
-
-    main.innerHTML=`
-
+  if(result.error){
+    main.innerHTML = `
       <div class="panel error">
-
-        <h2>
-          ⚠️ ZolTube Error
-        </h2>
-
-        <p>
-          Videos load नहीं हो पाए।
-        </p>
-
-        <p>
-          ${esc(error.message)}
-        </p>
-
-        <button
-          class="btn primary"
-          onclick="load()"
-        >
-          🔄 Retry
-        </button>
-
+        <h2>⚠️ ZolTube Error</h2>
+        <p>${esc(result.error.message)}</p>
       </div>
-
     `;
-
+    return;
   }
 
+  vids = result.data || [];
+
+  renderHome();
 }
 
-
-/* =====================================================
-   VIDEO CARD
-   ===================================================== */
-
-function card(v){
-
-  const thumb =
-    v.thumbnail_url
-    ? `<img src="${esc(v.thumbnail_url)}">`
-    : "▶";
-
+function videoCard(v){
 
   return `
-
-    <div
-      class="card"
-      onclick='watch(${JSON.stringify(v.id)})'
-    >
+    <div class="card"
+         onclick="watchVideo('${v.id}')">
 
       <div class="thumb">
-        ${thumb}
+        ${
+          v.thumbnail_url
+          ?
+          `<img src="${esc(v.thumbnail_url)}">`
+          :
+          `▶`
+        }
       </div>
 
       <div class="title">
@@ -767,820 +423,803 @@ function card(v){
       </div>
 
       <div class="meta">
-
-        ${Number(v.views || 0)}
-        views
-
-        ·
-
-        ${new Date(
-          v.created_at
-        ).toLocaleDateString("en-IN")}
-
+        ${esc(v.user_id)}
+        · ${v.views || 0} views
       </div>
 
     </div>
-
   `;
-
 }
-
-
-/* =====================================================
-   HOME
-   ===================================================== */
 
 function renderHome(){
 
-  if(loading){
+  mode = "home";
 
-    return;
+  let list = [...vids];
 
-  }
+  const search =
+    document.getElementById("q")
+      .value
+      .trim()
+      .toLowerCase();
 
+  if(search){
 
-  const input =
-    document.getElementById("q");
+    list = list.filter(function(v){
 
-  const q =
-    (
-      input?.value || ""
-    ).toLowerCase()
-     .trim();
-
-
-  let list=[...vids];
-
-
-  if(q){
-
-    list =
-      list.filter(v =>
-
-        (
-          v.title +
-          " " +
-          (v.description || "")
-        )
-        .toLowerCase()
-        .includes(q)
-
+      return (
+        String(v.title || "")
+          .toLowerCase()
+          .includes(search)
+        ||
+        String(v.description || "")
+          .toLowerCase()
+          .includes(search)
       );
 
+    });
+
   }
 
+  main.innerHTML = `
 
-  main.innerHTML=`
-
-    <div
-      class="row"
-      style="margin-bottom:18px"
-    >
+    <div class="row" style="margin-bottom:18px">
 
       <button
         class="btn primary"
-        onclick="uploadBox()"
-      >
+        onclick="uploadBox()">
         ⬆️ Upload video
       </button>
 
       <button
         class="btn secondary"
-        onclick="accountBox()"
-      >
-        ${me ? "👤 Account" : "🔐 Login / Sign up"}
+        onclick="accountBox()">
+        ${currentUser ? "👤 Account" : "🔐 Login / Sign up"}
       </button>
 
     </div>
 
+    <div class="grid">
 
-    ${
-      list.length
+      ${
+        list.length
+        ?
+        list.map(videoCard).join("")
+        :
+        `
+        <div class="panel">
+          <h2>अभी कोई video नहीं है।</h2>
+          <p>अपना पहला video upload करें।</p>
+        </div>
+        `
+      }
 
-      ?
-
-      `<div class="grid">
-        ${list.map(card).join("")}
-       </div>`
-
-      :
-
-      `
-      <div class="panel">
-
-        <h2>
-          अभी कोई video नहीं है।
-        </h2>
-
-        <p>
-          पहला video upload करके testing शुरू करें।
-        </p>
-
-      </div>
-      `
-    }
-
+    </div>
   `;
-
 }
 
-
-/* =====================================================
-   HOME NAV
-   ===================================================== */
-
-function home(el){
+function homePage(el){
 
   nav(el);
-
+  mode = "home";
   renderHome();
 
 }
 
-
-/* =====================================================
-   NAVIGATION
-   ===================================================== */
-
-function nav(el){
-
-  document
-  .querySelectorAll(".nav")
-  .forEach(x =>
-    x.classList.remove("active")
-  );
-
-
-  if(el){
-
-    el.classList.add("active");
-
-  }
-
-}
-
-
-/* =====================================================
-   SHORTS
-   ===================================================== */
-
-function shorts(el){
+function showShorts(el){
 
   nav(el);
-
+  mode = "shorts";
 
   const list =
-    vids.filter(v =>
+    vids.filter(function(v){
+      return String(v.title || "")
+        .toLowerCase()
+        .includes("short");
+    });
 
-      String(v.title)
-      .toLowerCase()
-      .includes("short")
-
-    );
-
-
-  main.innerHTML=`
+  main.innerHTML = `
 
     <div class="panel">
+      <h1>⚡ Shorts</h1>
+      <p>ZolTube Shorts</p>
+    </div>
 
-      <h2>⚡ Shorts</h2>
+    <div class="grid">
 
       ${
         list.length
-
         ?
-
-        `<div class="grid">
-          ${list.map(card).join("")}
-         </div>`
-
+        list.map(videoCard).join("")
         :
-
-        `<p>
-          अभी Shorts नहीं हैं।
-         </p>`
-
+        `
+        <div class="panel">
+          अभी कोई Shorts नहीं है।
+        </div>
+        `
       }
 
     </div>
-
   `;
-
 }
 
+function accountBox(){
 
-/* =====================================================
-   LOGIN / SIGNUP BOX
-   ===================================================== */
+  if(currentUser){
 
-function loginBox(){
+    openBox(`
 
-  modal.style.display="flex";
+      <h2>👤 ZolTube Account</h2>
 
+      <p>
+        <b>Email:</b><br>
+        ${esc(currentUser.email)}
+      </p>
 
-  box.innerHTML=`
+      <p>
+        <b>Name:</b><br>
+        ${esc(me?.display_name || "ZolTube User")}
+      </p>
 
-    <h2>
-      🔐 ZolTube Account
-    </h2>
+      <div class="row">
 
-    <p class="small">
-      नया account बनाने के लिए नीचे जानकारी भरें।
-    </p>
+        <button
+          class="btn primary"
+          onclick="closeBox()">
+          Close
+        </button>
+
+        <button
+          class="btn secondary"
+          onclick="logout()">
+          Logout
+        </button>
+
+      </div>
+
+    `);
+
+    return;
+  }
+
+  openBox(`
+
+    <h2>🔐 ZolTube Account</h2>
 
     <input
-      id="n"
-      placeholder="Name"
-    >
-
-    <input
-      id="e"
+      id="loginEmail"
       type="email"
-      placeholder="Email"
-    >
+      placeholder="Email">
 
     <input
-      id="p"
+      id="loginPassword"
       type="password"
-      placeholder="Password (6+ characters)"
-    >
+      placeholder="Password">
 
     <div class="row">
 
       <button
         class="btn primary"
-        onclick="signup()"
-      >
-        Create account
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="signin()"
-      >
+        onclick="login()">
         Login
       </button>
 
       <button
         class="btn secondary"
-        onclick="closeBox()"
-      >
+        onclick="signupBox()">
+        Create account
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="closeBox()">
         Close
       </button>
 
     </div>
 
-  `;
+    <p id="accountMsg"></p>
 
+  `);
 }
 
+function signupBox(){
 
-/* =====================================================
-   SIGN UP
-   ===================================================== */
+  openBox(`
+
+    <h2>🆕 Create ZolTube Account</h2>
+
+    <input
+      id="signupName"
+      placeholder="Your name">
+
+    <input
+      id="signupUsername"
+      placeholder="Username">
+
+    <input
+      id="signupEmail"
+      type="email"
+      placeholder="Email">
+
+    <input
+      id="signupPassword"
+      type="password"
+      placeholder="Password (6+ characters)">
+
+    <div class="row">
+
+      <button
+        class="btn primary"
+        onclick="signup()">
+        Create account
+      </button>
+
+      <button
+        class="btn secondary"
+        onclick="accountBox()">
+        Back
+      </button>
+
+    </div>
+
+    <p id="signupMsg"></p>
+
+  `);
+}
 
 async function signup(){
 
   const name =
-    document.getElementById("n")
-    .value.trim();
+    document.getElementById("signupName").value.trim();
+
+  const username =
+    document.getElementById("signupUsername").value.trim();
 
   const email =
-    document.getElementById("e")
-    .value.trim();
+    document.getElementById("signupEmail").value.trim();
 
   const password =
-    document.getElementById("p")
-    .value;
+    document.getElementById("signupPassword").value;
 
+  const msg =
+    document.getElementById("signupMsg");
 
-  if(!name){
+  if(!name || !username || !email || !password){
 
-    alert("Name डालें");
-
-    return;
-
-  }
-
-
-  if(!email){
-
-    alert("Email डालें");
+    msg.innerHTML =
+      `<span class="error">सभी fields भरें।</span>`;
 
     return;
-
   }
-
 
   if(password.length < 6){
 
-    alert(
-      "Password कम से कम 6 characters का होना चाहिए."
-    );
+    msg.innerHTML =
+      `<span class="error">Password कम से कम 6 characters का होना चाहिए।</span>`;
 
     return;
-
   }
 
-
-  try{
-
-    const result =
-      await withTimeout(
-
-        supabase.auth.signUp({
-
-          email,
-          password,
-
-          options:{
-            data:{
-              display_name:name,
-              username:
-                name
-                .toLowerCase()
-                .replace(/[^a-z0-9]/g,"")
-                .slice(0,30)
-            }
-          }
-
-        }),
-
-        15000
-
-      );
-
-
-    if(result.error){
-
-      throw result.error;
-
-    }
-
-
-    /*
-      Email confirmation ON होने पर session तुरंत
-      नहीं भी मिल सकता।
-    */
-
-    if(!result.data.session){
-
-      closeBox();
-
-      alert(
-        "Account बन गया है। अगर email confirmation मांगा जाए तो अपनी email में जाकर confirmation पूरा करें, फिर ZolTube में Login करें."
-      );
-
-      return;
-
-    }
-
-
-    await createProfile(
-      result.data.user,
-      name
-    );
-
-
-    await loadMe();
-
-    closeBox();
-
-    renderHome();
-
-
-  }catch(error){
-
-    alert(
-      "Signup error: " +
-      error.message
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   CREATE PROFILE
-   ===================================================== */
-
-async function createProfile(
-  user,
-  name
-){
-
-  if(!user){
-
-    return;
-
-  }
-
-
-  const username =
-    name
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g,"")
-    .slice(0,30)
-    ||
-    "user" +
-    user.id.slice(0,8);
-
+  msg.textContent = "Account बनाया जा रहा है...";
 
   const result =
-    await supabase
-    .from("profiles")
-    .upsert({
-
-      id:user.id,
-
-      username:username,
-
-      display_name:name,
-
-      avatar_url:null
-
+    await supabase.auth.signUp({
+      email:email,
+      password:password
     });
-
 
   if(result.error){
 
-    console.log(
-      "Profile create error:",
-      result.error
-    );
-
-  }
-
-}
-
-
-/* =====================================================
-   LOGIN
-   ===================================================== */
-
-async function signin(){
-
-  const email =
-    document.getElementById("e")
-    .value.trim();
-
-  const password =
-    document.getElementById("p")
-    .value;
-
-
-  if(!email || !password){
-
-    alert(
-      "Email और password डालें."
-    );
+    msg.innerHTML =
+      `<span class="error">${esc(result.error.message)}</span>`;
 
     return;
-
   }
 
+  if(result.data.user){
 
-  try{
+    const profile =
+      await supabase
+        .from("profiles")
+        .upsert({
+          id:result.data.user.id,
+          username:username,
+          display_name:name
+        });
 
-    const result =
-      await withTimeout(
+    if(profile.error){
 
-        supabase.auth.signInWithPassword({
+      msg.innerHTML =
+        `<span class="error">
+          Account बन गया, लेकिन profile save नहीं हुआ:
+          ${esc(profile.error.message)}
+        </span>`;
 
-          email,
-          password
-
-        }),
-
-        15000
-
-      );
-
-
-    if(result.error){
-
-      throw result.error;
-
+      return;
     }
+  }
 
+  if(result.data.session){
 
     await loadMe();
-
     closeBox();
-
     renderHome();
 
+  }else{
 
-  }catch(error){
-
-    alert(
-      "Login error: " +
-      error.message
-    );
-
+    msg.innerHTML =
+      `<span class="success">
+        Account बन गया। अगर email confirmation चालू है तो पहले अपना email confirm करें।
+      </span>`;
   }
-
 }
 
+async function login(){
 
-/* =====================================================
-   ACCOUNT
-   ===================================================== */
+  const email =
+    document.getElementById("loginEmail").value.trim();
 
-function accountBox(){
+  const password =
+    document.getElementById("loginPassword").value;
 
-  modal.style.display="flex";
+  const msg =
+    document.getElementById("accountMsg");
 
+  msg.textContent = "Login हो रहा है...";
 
-  if(!me){
+  const result =
+    await supabase.auth.signInWithPassword({
+      email:email,
+      password:password
+    });
 
-    box.innerHTML=`
+  if(result.error){
 
-      <h2>
-        🔐 ZolTube Account
-      </h2>
-
-      <p>
-        आप अभी login नहीं हैं।
-      </p>
-
-      <button
-        class="btn primary"
-        onclick="loginBox()"
-      >
-        Login / Sign up
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="closeBox()"
-      >
-        Close
-      </button>
-
-    `;
+    msg.innerHTML =
+      `<span class="error">${esc(result.error.message)}</span>`;
 
     return;
-
   }
 
+  await loadMe();
 
-  box.innerHTML=`
+  closeBox();
 
-    <h2>
-      👤 ${esc(me.display_name || me.username)}
-    </h2>
-
-    <p>
-      Username:
-      ${esc(me.username || "")}
-    </p>
-
-    <p class="small">
-      ${esc(currentUser?.email || "")}
-    </p>
-
-    <div class="row">
-
-      <button
-        class="btn secondary"
-        onclick="channel()"
-      >
-        My Channel
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="studio()"
-      >
-        Creator Studio
-      </button>
-
-      <button
-        class="btn primary"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-
-      <button
-        class="btn secondary"
-        onclick="closeBox()"
-      >
-        Close
-      </button>
-
-    </div>
-
-  `;
-
+  renderHome();
 }
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
 
 async function logout(){
 
-  try{
+  await supabase.auth.signOut();
 
-    await supabase.auth.signOut();
+  currentUser = null;
+  me = null;
+  ava.textContent = "Z";
 
-    me=null;
+  closeBox();
 
-    currentUser=null;
-
-    ava.textContent="Z";
-
-    closeBox();
-
-    renderHome();
-
-  }catch(error){
-
-    alert(
-      "Logout error: " +
-      error.message
-    );
-
-  }
-
+  renderHome();
 }
 
-
-/* =====================================================
-   UPLOAD BOX
-   ===================================================== */
-
-async function uploadBox(){
+function uploadBox(){
 
   if(!currentUser){
 
-    loginBox();
-
+    accountBox();
     return;
-
   }
 
+  openBox(`
 
-  modal.style.display="flex";
-
-
-  box.innerHTML=`
-
-    <h2>
-      ⬆️ Upload Video
-    </h2>
+    <h2>⬆️ Upload Video</h2>
 
     <input
-      id="t"
-      placeholder="Video title"
-    >
+      id="videoTitle"
+      placeholder="Video title">
 
     <textarea
-      id="d"
-      placeholder="Description"
-    ></textarea>
+      id="videoDescription"
+      placeholder="Description"></textarea>
 
     <input
-      id="f"
+      id="videoFile"
       type="file"
-      accept="video/*"
-    >
+      accept="video/*">
 
-    <p class="small">
+    <p>
       Maximum file size: 50 MB
     </p>
+
+    <p id="uploadMsg"></p>
 
     <div class="row">
 
       <button
         class="btn primary"
-        onclick="publish()"
-      >
+        onclick="publishVideo()">
         Publish
       </button>
 
       <button
         class="btn secondary"
-        onclick="closeBox()"
-      >
+        onclick="closeBox()">
         Cancel
       </button>
 
     </div>
 
-  `;
-
+  `);
 }
 
-
-/* =====================================================
-   PUBLISH VIDEO
-   ===================================================== */
-
-async function publish(){
+async function publishVideo(){
 
   const title =
-    document.getElementById("t")
-    .value.trim();
+    document.getElementById("videoTitle")
+      .value.trim();
 
   const description =
-    document.getElementById("d")
-    .value.trim();
+    document.getElementById("videoDescription")
+      .value.trim();
 
   const file =
-    document.getElementById("f")
-    .files[0];
+    document.getElementById("videoFile")
+      .files[0];
 
+  const msg =
+    document.getElementById("uploadMsg");
 
   if(!title){
 
-    alert(
-      "Video title डालें."
-    );
+    msg.innerHTML =
+      `<span class="error">Video title डालें।</span>`;
 
     return;
-
   }
-
 
   if(!file){
 
-    alert(
-      "पहले video select करें."
-    );
+    msg.innerHTML =
+      `<span class="error">Video file चुनें।</span>`;
 
     return;
-
   }
 
+  if(file.size > 50 * 1024 * 1024){
 
-  if(
-    !file.type.startsWith("video/")
-  ){
-
-    alert(
-      "केवल video file upload करें."
-    );
+    msg.innerHTML =
+      `<span class="error">Video 50 MB से छोटा होना चाहिए।</span>`;
 
     return;
-
   }
 
+  if(!file.type.startsWith("video/")){
 
-  if(
-    file.size > 50 * 1024 * 1024
-  ){
-
-    alert(
-      "Video 50 MB से छोटा होना चाहिए."
-    );
+    msg.innerHTML =
+      `<span class="error">सिर्फ video file upload करें।</span>`;
 
     return;
-
   }
 
+  msg.textContent =
+    "Video upload हो रहा है...";
+
+  const safeName =
+    file.name
+      .replace(/[^a-zA-Z0-9._-]/g,"_");
+
+  const filePath =
+    currentUser.id +
+    "/" +
+    Date.now() +
+    "-" +
+    safeName;
+
+  const uploadResult =
+    await supabase.storage
+      .from("videos")
+      .upload(filePath,file,{
+        contentType:file.type,
+        upsert:false
+      });
+
+  if(uploadResult.error){
+
+    msg.innerHTML =
+      `<span class="error">
+        Upload error: ${esc(uploadResult.error.message)}
+      </span>`;
+
+    return;
+  }
+
+  const publicResult =
+    supabase.storage
+      .from("videos")
+      .getPublicUrl(filePath);
+
+  const videoUrl =
+    publicResult.data.publicUrl;
+
+  const insertResult =
+    await supabase
+      .from("videos")
+      .insert({
+        user_id:currentUser.id,
+        title:title,
+        description:description,
+        video_url:videoUrl,
+        thumbnail_url:null
+      })
+      .select()
+      .single();
+
+  if(insertResult.error){
+
+    msg.innerHTML =
+      `<span class="error">
+        Database error: ${esc(insertResult.error.message)}
+      </span>`;
+
+    return;
+  }
+
+  msg.innerHTML =
+    `<span class="success">
+      ✅ Video successfully uploaded!
+    </span>`;
+
+  vids.unshift(insertResult.data);
+
+  setTimeout(function(){
+
+    closeBox();
+    renderHome();
+
+  },1000);
+}
+
+async function watchVideo(id){
+
+  const video =
+    vids.find(function(v){
+      return String(v.id) === String(id);
+    });
+
+  if(!video){
+    return;
+  }
+
+  await supabase.rpc(
+    "increment_video_views",
+    {
+      p_video_id:id
+    }
+  );
+
+  video.views =
+    Number(video.views || 0) + 1;
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <video
+        class="videoPlayer"
+        controls
+        autoplay
+        src="${esc(video.video_url)}">
+      </video>
+
+      <h2>
+        ${esc(video.title)}
+      </h2>
+
+      <div class="meta">
+        ${video.views} views
+      </div>
+
+      <p>
+        ${esc(video.description || "")}
+      </p>
+
+      <div class="row">
+
+        <button
+          class="btn secondary">
+          👍 Like
+        </button>
+
+        <button
+          class="btn secondary">
+          💬 Comment
+        </button>
+
+        <button
+          class="btn primary">
+          🔔 Subscribe
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+function studioPage(el){
+
+  nav(el);
+
+  if(!currentUser){
+
+    accountBox();
+    return;
+  }
+
+  const mine =
+    vids.filter(function(v){
+      return v.user_id === currentUser.id;
+    });
+
+  const views =
+    mine.reduce(function(total,v){
+      return total + Number(v.views || 0);
+    },0);
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <h1>📊 Creator Studio</h1>
+
+      <p>
+        Welcome,
+        ${esc(me?.display_name || currentUser.email)}
+      </p>
+
+      <div class="stats">
+
+        <div class="stat">
+          Videos
+          <b>${mine.length}</b>
+        </div>
+
+        <div class="stat">
+          Views
+          <b>${views}</b>
+        </div>
+
+        <div class="stat">
+          Subscribers
+          <b>0</b>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>My Videos</h2>
+
+      <div class="grid">
+
+        ${
+          mine.length
+          ?
+          mine.map(videoCard).join("")
+          :
+          "अभी कोई video नहीं है।"
+        }
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+function channelPage(el){
+
+  nav(el);
+
+  if(!currentUser){
+
+    accountBox();
+    return;
+  }
+
+  const mine =
+    vids.filter(function(v){
+      return v.user_id === currentUser.id;
+    });
+
+  main.innerHTML = `
+
+    <div class="panel">
+
+      <h1>
+        👤 ${esc(me?.display_name || "My Channel")}
+      </h1>
+
+      <p>
+        @${esc(me?.username || "user")}
+      </p>
+
+      <p>
+        ${esc(currentUser.email)}
+      </p>
+
+    </div>
+
+    <div class="panel">
+
+      <h2>My Videos</h2>
+
+      <div class="grid">
+
+        ${
+          mine.length
+          ?
+          mine.map(videoCard).join("")
+          :
+          "अभी कोई video नहीं है।"
+        }
+
+      </div>
+
+    </div>
+
+  `;
+}
+
+supabase.auth.onAuthStateChange(
+  async function(event,session){
+
+    currentUser =
+      session?.user || null;
+
+    await loadMe();
+
+    if(mode === "home"){
+      renderHome();
+    }
+
+  }
+);
+
+async function start(){
 
   try{
 
-    box.innerHTML=`
+    await loadMe();
 
-      <h2>
-        ⏳ Uploading...
-      </h2>
+    await load();
 
-      <p>
-        Video upload हो रहा है।
-        इस दौरान page बंद न करें।
-      </p>
+  }catch(error){
+
+    main.innerHTML = `
+
+      <div class="panel error">
+
+        <h2>⚠️ ZolTube Error</h2>
+
+        <p>
+          ${esc(error.message)}
+        </p>
+
+      </div>
 
     `;
 
+  }
 
-    const safeName =
-      file.name
-      .replace(/[^a-zA-Z0-9._-]/g,"_");
+}
 
+start();
 
-    const filePath =
-      currentUser.id +
-      "/" +
-      Date.now() +
-      "-" +
-      safeName;
+</script>
 
-
-    const uploadResult =
-      await withTimeout(
-
-        supabase
-        .storage
-        .from("videos")
-        .upload(
-          filePath,
-          file,
-          {
-            cacheControl:"360
+</body>
+  </html>
