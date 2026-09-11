@@ -5,27 +5,24 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ZolTube</title>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial;background:#f7f7f7;color:#111}
-header{height:60px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:12px;padding:8px 14px;position:sticky;top:0;z-index:4}
-.logo{font-size:24px;font-weight:800;color:#e11}
+body{margin:0;font-family:Arial,sans-serif;background:#f7f7f7;color:#111}
+header{height:64px;background:#fff;border-bottom:1px solid #ddd;display:flex;align-items:center;gap:12px;padding:8px 14px;position:sticky;top:0;z-index:4}
+.logo{font-size:25px;font-weight:800;color:#e11}
 .logo span{color:#111}
 .search{flex:1;max-width:650px;margin:auto;display:flex}
-.search input{width:100%;padding:11px 15px;border:1px solid #bbb;border-radius:22px 0 0 22px}
-.search button{border:1px solid #bbb;border-left:0;border-radius:0 22px 22px 0;padding:0 18px}
-.avatar{width:36px;height:36px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-weight:bold}
+.search input{width:100%;padding:12px 15px;border:1px solid #bbb;border-radius:24px 0 0 24px;font-size:16px}
+.search button{border:1px solid #bbb;border-left:0;border-radius:0 24px 24px 0;padding:0 18px;background:#fff}
+.avatar{width:38px;height:38px;border-radius:50%;background:#111;color:#fff;display:grid;place-items:center;font-weight:bold}
 .layout{display:flex}
-.side{width:210px;background:#fff;min-height:calc(100vh - 60px);padding:14px 9px;position:sticky;top:60px}
+.side{width:210px;background:#fff;min-height:calc(100vh - 64px);padding:14px 9px;position:sticky;top:64px}
 .nav{padding:12px;border-radius:10px;cursor:pointer;margin:3px 0}
 .nav:hover,.nav.active{background:#eee;font-weight:bold}
 main{flex:1;max-width:1250px;margin:auto;padding:20px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:20px}
 .card{cursor:pointer}
-.thumb{aspect-ratio:16/9;border-radius:10px;background:linear-gradient(135deg,#222,#888);display:grid;place-items:center;color:white;font-size:40px;overflow:hidden}
-.thumb img{width:100%;height:100%;object-fit:cover}
+.thumb{aspect-ratio:16/9;border-radius:10px;background:linear-gradient(135deg,#222,#888);display:grid;place-items:center;color:#fff;font-size:40px}
 .title{font-weight:700;margin-top:9px}
 .meta{font-size:13px;color:#666;margin-top:5px}
 .panel{background:#fff;border:1px solid #ddd;border-radius:14px;padding:20px;margin-bottom:18px}
@@ -39,38 +36,46 @@ main{flex:1;max-width:1250px;margin:auto;padding:20px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .stat{background:#eee;padding:16px;border-radius:12px}
 .stat b{display:block;font-size:25px;margin-top:5px}
-video{width:100%;max-height:65vh;background:#000;border-radius:10px}
+
 @media(max-width:750px){
 .side{display:none}
 main{padding:14px}
 .stats{grid-template-columns:1fr}
 .grid{grid-template-columns:1fr 1fr}
 }
-@media(max-width:430px){.grid{grid-template-columns:1fr}}
+@media(max-width:430px){
+.grid{grid-template-columns:1fr}
+}
 </style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
+
 <body>
 
 <header>
 <div class="logo">Zol<span>Tube</span></div>
+
 <div class="search">
 <input id="q" placeholder="Search ZolTube..." oninput="render()">
 <button onclick="render()">🔍</button>
 </div>
+
 <div class="avatar" id="ava">Z</div>
 </header>
 
 <div class="layout">
 
 <aside class="side">
+
 <div class="nav active" onclick="home(this)">🏠 Home</div>
 <div class="nav" onclick="showShorts(this)">⚡ Shorts</div>
+
 <hr>
+
 <div class="nav" onclick="studio(this)">📊 Creator Studio</div>
 <div class="nav" onclick="uploadBox()">⬆️ Upload</div>
 <div class="nav" onclick="channel(this)">👤 My Channel</div>
-<div class="nav" onclick="loginBox()">🔐 Account</div>
+<div class="nav" onclick="loginBox()">🔐 Login</div>
+
 </aside>
 
 <main id="main"></main>
@@ -83,197 +88,67 @@ main{padding:14px}
 
 <script>
 
-/* =========================
-   SUPABASE CONNECTION
-========================= */
-
-const SUPABASE_URL =
-"https://yfcvfcokdovppmwldrl.supabase.co";
-
-const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_................";
-
-const supabase =
-window.supabase.createClient(
-SUPABASE_URL,
-SUPABASE_PUBLISHABLE_KEY
-);
-
-
-/* =========================
-   APP DATA
-========================= */
-
 let vids=[];
 let mode="home";
-let me=null;
+let token=localStorage.zolToken||"";
+let me=JSON.parse(localStorage.zolMe||"null");
 
 const main=document.getElementById("main");
 const modal=document.getElementById("modal");
 const box=document.getElementById("box");
 const ava=document.getElementById("ava");
 
+async function api(url,opt={}){
 
-/* =========================
-   CURRENT USER
-========================= */
-
-async function loadMe(){
-
-const {data:{user}} =
-await supabase.auth.getUser();
-
-if(!user){
-me=null;
-ava.textContent="Z";
-return;
-}
-
-const {data:profile} =
-await supabase
-.from("profiles")
-.select("*")
-.eq("id",user.id)
-.maybeSingle();
-
-me={
-id:user.id,
-email:user.email,
-name:profile?.display_name ||
-user.user_metadata?.display_name ||
-"Zol Rao",
-channel:
-(profile?.display_name ||
-user.user_metadata?.display_name ||
-"Zol Rao")+" Channel"
+opt.headers={
+...(opt.headers||{}),
+...(token?{Authorization:"Bearer "+token}:{})
 };
 
-ava.textContent=
-me.name.charAt(0).toUpperCase();
+const r=await fetch(url,opt);
+const d=await r.json().catch(()=>({}));
+
+if(!r.ok)throw Error(d.error||"Request failed");
+
+return d;
 }
-
-
-/* =========================
-   LOAD VIDEOS
-========================= */
 
 async function load(){
 
-const {data,error} =
-await supabase
-.from("videos")
-.select("*")
-.order("created_at",{ascending:false});
-
-if(error){
-console.log(error);
+try{
+vids=await api("/api/videos");
+}catch(e){
 vids=[];
-render();
-return;
-}
-
-vids=data||[];
-
-const ids=[
-...new Set(vids.map(v=>v.user_id))
-];
-
-if(ids.length){
-
-const {data:profiles} =
-await supabase
-.from("profiles")
-.select("id,display_name,avatar_url")
-.in("id",ids);
-
-const map={};
-
-(profiles||[]).forEach(p=>{
-map[p.id]=p;
-});
-
-vids=vids.map(v=>({
-...v,
-name:map[v.user_id]?.display_name||"ZolTube Creator",
-channel:
-(map[v.user_id]?.display_name||"ZolTube Creator")+" Channel"
-}));
-
 }
 
 render();
 }
-
-
-/* =========================
-   HOME
-========================= */
-
-function home(el){
-mode="home";
-nav(el);
-render();
-}
-
-function showShorts(el){
-mode="shorts";
-nav(el);
-render();
-}
-
-function nav(el){
-document
-.querySelectorAll(".nav")
-.forEach(x=>x.classList.remove("active"));
-
-if(el)el.classList.add("active");
-}
-
-
-/* =========================
-   VIDEO CARD
-========================= */
 
 function card(v){
 
 return `
-<div class="card"
-onclick='watch(${JSON.stringify(v.id)})'>
+<div class="card" onclick="watch(${Number(v.id)})">
 
-<div class="thumb">
-${v.thumbnail_url
-?`<img src="${esc(v.thumbnail_url)}">`
-:"▶"}
-</div>
+<div class="thumb">▶</div>
 
-<div class="title">
-${esc(v.title)}
-</div>
+<div class="title">${esc(v.title)}</div>
 
 <div class="meta">
-${esc(v.channel||"ZolTube Creator")}
- · ${v.views||0} views
+${esc(v.channel)} · ${Number(v.views)||0} views
 </div>
 
-</div>
-`;
+</div>`;
 }
-
-
-/* =========================
-   RENDER
-========================= */
 
 function render(){
 
 let list=[...vids];
 
-const q=
-(document.getElementById("q").value||"")
-.toLowerCase();
+const q=(document.getElementById("q").value||"").toLowerCase();
 
 if(mode==="shorts"){
 list=list.filter(v=>
-(v.title||"").toLowerCase().includes("short")
+String(v.title).toLowerCase().includes("short")
 );
 }
 
@@ -281,11 +156,8 @@ if(q){
 
 list=list.filter(v=>
 (
-(v.title||"")+" "+
-(v.channel||"")
-)
-.toLowerCase()
-.includes(q)
+String(v.title)+" "+String(v.channel)
+).toLowerCase().includes(q)
 );
 
 }
@@ -318,10 +190,30 @@ list.map(card).join("")
 `;
 }
 
+function home(el){
 
-/* =========================
-   ACCOUNT
-========================= */
+mode="home";
+nav(el);
+render();
+
+}
+
+function showShorts(el){
+
+mode="shorts";
+nav(el);
+render();
+
+}
+
+function nav(el){
+
+document.querySelectorAll(".nav")
+.forEach(x=>x.classList.remove("active"));
+
+if(el)el.classList.add("active");
+
+}
 
 function loginBox(){
 
@@ -354,15 +246,6 @@ onclick="signin()">
 Login
 </button>
 
-${
-me
-?`<button class="btn secondary"
-onclick="logout()">
-Logout
-</button>`
-:""
-}
-
 <button class="btn secondary"
 onclick="closeBox()">
 Close
@@ -372,148 +255,89 @@ Close
 `;
 }
 
-
-/* =========================
-   SIGN UP
-========================= */
-
 async function signup(){
 
 try{
 
-const name=
-(document.getElementById("n").value||"").trim();
+const d=await api("/api/register",{
 
-const email=
-(document.getElementById("e").value||"").trim();
+method:"POST",
 
-const password=
-document.getElementById("p").value;
+headers:{
+"Content-Type":"application/json"
+},
 
-if(!name||!email||password.length<6){
+body:JSON.stringify({
 
-alert("Name, email और 6+ character password डालें।");
-return;
-}
+name:n.value.trim(),
+email:e.value.trim(),
+password:p.value
 
-const {data,error}=
-await supabase.auth.signUp({
-
-email,
-password,
-
-options:{
-data:{
-display_name:name
-}
-}
+})
 
 });
 
-if(error)throw error;
-
-if(data.user){
-
-const username=
-name.toLowerCase()
-.replace(/[^a-z0-9]/g,"")
-.slice(0,25)
-+"_"+data.user.id.slice(0,6);
-
-await supabase
-.from("profiles")
-.upsert({
-id:data.user.id,
-username,
-display_name:name
-});
-
-}
-
-if(!data.session){
-
-alert(
-"Account बन गया ✅\n\nअगर email confirmation चालू है तो पहले अपनी email verify करें, फिर Login करें।"
-);
-
-}else{
-
-await loadMe();
+setMe(d);
 closeBox();
 render();
 
-}
+}catch(x){
 
-}catch(e){
-
-alert(e.message);
+alert(x.message);
 
 }
 
 }
-
-
-/* =========================
-   LOGIN
-========================= */
 
 async function signin(){
 
 try{
 
-const email=
-(document.getElementById("e").value||"").trim();
+const d=await api("/api/login",{
 
-const password=
-document.getElementById("p").value;
+method:"POST",
 
-const {error}=
-await supabase.auth.signInWithPassword({
-email,
-password
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+email:e.value.trim(),
+password:p.value
+
+})
+
 });
 
-if(error)throw error;
-
-await loadMe();
-
-closeBox();
-
-render();
-
-}catch(e){
-
-alert(e.message);
-
-}
-
-}
-
-
-/* =========================
-   LOGOUT
-========================= */
-
-async function logout(){
-
-await supabase.auth.signOut();
-
-me=null;
-ava.textContent="Z";
-
+setMe(d);
 closeBox();
 render();
 
+}catch(x){
+
+alert(x.message);
+
 }
 
+}
 
-/* =========================
-   UPLOAD
-========================= */
+function setMe(d){
+
+token=d.token;
+me=d.user;
+
+localStorage.zolToken=token;
+localStorage.zolMe=JSON.stringify(me);
+
+ava.textContent=
+(me.name||"Z")[0].toUpperCase();
+
+}
 
 function uploadBox(){
 
-if(!me){
+if(!token){
 
 loginBox();
 return;
@@ -537,8 +361,7 @@ type="file"
 accept="video/*">
 
 <p>
-Free Supabase storage में file size limit हो सकती है।
-अभी छोटा test video upload करें।
+अभी video server के local storage पर save होगा।
 </p>
 
 <div class="row">
@@ -557,132 +380,53 @@ Cancel
 `;
 }
 
-
-/* =========================
-   PUBLISH VIDEO
-========================= */
-
 async function publish(){
 
 try{
 
-const title=
-(document.getElementById("t").value||"").trim();
+if(!f.files[0])
+throw Error("Video file required");
 
-const description=
-(document.getElementById("d").value||"").trim();
+if(!t.value.trim())
+throw Error("Title required");
 
-const file=
-document.getElementById("f").files[0];
+const fd=new FormData();
 
-if(!title){
+fd.append("title",t.value.trim());
+fd.append("description",d.value||"");
+fd.append("video",f.files[0]);
 
-alert("Video title डालें।");
-return;
-
-}
-
-if(!file){
-
-alert("Video file चुनें।");
-return;
-
-}
-
-if(!file.type.startsWith("video/")){
-
-alert("सिर्फ video file upload करें।");
-return;
-
-}
-
-const safeName=
-file.name
-.replace(/[^a-zA-Z0-9._-]/g,"_");
-
-const path=
-me.id+
-"/"+
-Date.now()+
-"_"+safeName;
-
-
-/* Upload to Supabase Storage */
-
-const {error:uploadError}=
-await supabase
-.storage
-.from("videos")
-.upload(path,file,{
-contentType:file.type,
-upsert:false
+await api("/api/videos",{
+method:"POST",
+body:fd
 });
-
-if(uploadError)throw uploadError;
-
-
-/* Public URL */
-
-const {data:urlData}=
-supabase
-.storage
-.from("videos")
-.getPublicUrl(path);
-
-
-/* Save video information */
-
-const {error:dbError}=
-await supabase
-.from("videos")
-.insert({
-
-user_id:me.id,
-title,
-description,
-video_url:urlData.publicUrl,
-views:0,
-likes:0
-
-});
-
-if(dbError)throw dbError;
 
 closeBox();
 
 await load();
 
-alert("Video uploaded successfully! ✅");
+alert("Video uploaded!");
 
-}catch(e){
+}catch(x){
 
-alert("Upload error: "+e.message);
-
-}
+alert(x.message);
 
 }
 
-
-/* =========================
-   WATCH
-========================= */
+}
 
 async function watch(id){
 
-const v=
-vids.find(x=>String(x.id)===String(id));
+const v=vids.find(
+x=>Number(x.id)===Number(id)
+);
 
 if(!v)return;
 
-
-/* Increase view */
-
-await supabase
-.rpc("increment_video_views",{
-p_video_id:id
-})
-.catch(()=>{});
-
+await api(
+"/api/videos/"+id+"/view",
+{method:"POST"}
+).catch(()=>{});
 
 main.innerHTML=`
 
@@ -690,20 +434,21 @@ main.innerHTML=`
 
 <video
 controls
-autoplay
-src="${esc(v.video_url)}">
+playsinline
+style="width:100%;max-height:65vh;background:#000"
+src="/api/videos/${id}/stream">
 </video>
 
 <h2>${esc(v.title)}</h2>
 
 <div class="meta">
-${esc(v.channel||"ZolTube Creator")}
- · ${(v.views||0)+1} views
+
+${esc(v.channel)} ·
+${(Number(v.views)||0)+1} views
+
 </div>
 
-<p>
-${esc(v.description||"")}
-</p>
+<p>${esc(v.description||"")}</p>
 
 <div class="row">
 
@@ -725,28 +470,36 @@ ${esc(v.description||"")}
 `;
 }
 
-
-/* =========================
-   CREATOR STUDIO
-========================= */
-
-async function studio(el){
+function studio(el){
 
 nav(el);
 
 if(!me){
 
-loginBox();
+main.innerHTML=`
+
+<div class="panel">
+
+<h2>📊 Creator Studio</h2>
+
+<p>
+Login करके अपना dashboard देखें।
+</p>
+
+</div>
+`;
+
 return;
 
 }
 
-const mine=
-vids.filter(v=>v.user_id===me.id);
+const mine=vids.filter(
+v=>Number(v.user_id)===Number(me.id)
+||v.name===me.name
+);
 
-const views=
-mine.reduce(
-(a,v)=>a+(v.views||0),0
+const views=mine.reduce(
+(a,v)=>a+(Number(v.views)||0),0
 );
 
 main.innerHTML=`
@@ -782,11 +535,6 @@ Subscribers
 `;
 }
 
-
-/* =========================
-   CHANNEL
-========================= */
-
 function channel(el){
 
 nav(el);
@@ -798,25 +546,32 @@ return;
 
 }
 
-const mine=
-vids.filter(v=>v.user_id===me.id);
+const mine=vids.filter(
+v=>v.channel===me.channel
+);
 
 main.innerHTML=`
 
 <div class="panel">
 
-<h1>👤 ${esc(me.channel)}</h1>
+<h1>
+👤 ${esc(me.channel)}
+</h1>
 
-<p>${esc(me.email)}</p>
+<p>
+${esc(me.email)}
+</p>
 
-<h2>My Videos</h2>
+<h2>
+My Videos
+</h2>
 
 <div class="grid">
 
 ${
 mine.map(card).join("")
 ||
-"<p>अभी कोई video नहीं है।</p>"
+"<p>अभी videos नहीं हैं।</p>"
 }
 
 </div>
@@ -825,21 +580,11 @@ mine.map(card).join("")
 `;
 }
 
-
-/* =========================
-   CLOSE MODAL
-========================= */
-
 function closeBox(){
 
 modal.style.display="none";
 
 }
-
-
-/* =========================
-   HTML SAFETY
-========================= */
 
 function esc(s){
 
@@ -855,26 +600,9 @@ return String(s??"")
 
 }
 
-
-/* =========================
-   START APP
-========================= */
-
-supabase.auth.onAuthStateChange(
-async()=>{
-await loadMe();
-render();
-}
-);
-
-(async()=>{
-
-await loadMe();
-await load();
-
-})();
+load();
 
 </script>
 
 </body>
-  </html>
+</html>
